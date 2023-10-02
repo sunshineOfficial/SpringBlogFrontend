@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="max-w-screen-xl flex flex-wrap mx-auto p-4">
+      <div className="max-w-screen-xl mx-auto p-4">
         <Outlet context={{token, setToken}} />
       </div>
     </>
