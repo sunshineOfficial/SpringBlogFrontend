@@ -1,11 +1,12 @@
 import React from "react";
+import PageHeader from "../../Components/PageHeader/PageHeader";
 
 interface Props {
 }
 
 const HomePage = (props: Props) => {
   return (
-    <div>HomePage</div>
+    <PageHeader>HomePage</PageHeader>
   );
 };
 

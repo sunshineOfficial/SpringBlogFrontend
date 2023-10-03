@@ -1,6 +1,7 @@
 import React from "react";
 import {useToken} from "../../App";
 import { Navigate } from "react-router-dom";
+import PageHeader from "../../Components/PageHeader/PageHeader";
 
 interface Props {
 }
@@ -12,7 +13,7 @@ const ProfilePage = (props: Props) => {
     return <Navigate replace to="/login" />
   
   return (
-    <div>ProfilePage</div>
+    <PageHeader>ProfilePage</PageHeader>
   );
 };
 
