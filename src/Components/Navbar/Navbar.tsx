@@ -3,9 +3,10 @@ import {Link} from "react-router-dom";
 import NavbarLink from "../NavbarLink/NavbarLink";
 
 interface Props {
+  loggedIn: boolean;
 }
 
-const Navbar = (props: Props) => {
+const Navbar = ({ loggedIn }: Props) => {
   return (
     <nav className="bg-green-200 border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -14,9 +15,20 @@ const Navbar = (props: Props) => {
         </Link>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-green-200">
-            <li>
-              <NavbarLink path="/profile">Profile</NavbarLink>
-            </li>
+            { loggedIn ? (
+              <li>
+                <NavbarLink path="/profile">Profile</NavbarLink>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <NavbarLink path="/login">Login</NavbarLink>
+                </li>
+                <li>
+                  <NavbarLink path="/register">Register</NavbarLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

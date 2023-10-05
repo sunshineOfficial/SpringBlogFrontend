@@ -14,7 +14,7 @@ function App() {
   
   return (
     <>
-      <Navbar />
+      <Navbar loggedIn={token !== ""} />
       <div className="max-w-screen-xl mx-auto p-4">
         <Outlet context={{token, setToken}} />
       </div>
