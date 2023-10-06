@@ -4,7 +4,7 @@ import {RegisterRequest} from "../../Api/Interfaces/auth";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 import {register} from "../../Api/api";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 interface Props {
 }
@@ -21,7 +21,6 @@ const RegisterPage = (props: Props) => {
     e.preventDefault();
     
     const response = await register(formData);
-    console.log(response);
 
     if (typeof response !== "string") {
       if (response.status === 200) {
@@ -41,7 +40,7 @@ const RegisterPage = (props: Props) => {
   
   return (
     <>
-      <PageHeader>RegisterPage</PageHeader>
+      <PageHeader>Register</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
       <RegisterForm onSubmit={onRegisterSubmit} onChange={onRegisterChange} />
     </>

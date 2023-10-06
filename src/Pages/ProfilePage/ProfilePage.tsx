@@ -13,7 +13,7 @@ const ProfilePage = (props: Props) => {
     return <Navigate replace to="/login" />
   
   return (
-    <PageHeader>ProfilePage</PageHeader>
+    <PageHeader>Profile</PageHeader>
   );
 };
 

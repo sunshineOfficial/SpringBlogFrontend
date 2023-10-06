@@ -17,3 +17,8 @@ export interface PageResponse {
   totalPages: number;
   last: boolean;
 }
+
+export interface PostRequest {
+  title: string;
+  content: string;
+}
