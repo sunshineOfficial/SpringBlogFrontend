@@ -1,6 +1,6 @@
 import axios from "axios";
 import {LoginRequest, LoginResponse, RegisterRequest} from "./Interfaces/auth";
-import {PageResponse} from "./Interfaces/post";
+import {PageResponse, PostResponse} from "./Interfaces/post";
 import {UserResponse} from "./Interfaces/user";
 
 export const login = async (request: LoginRequest) => {
@@ -81,6 +81,23 @@ export const getAllPosts = async (
 export const getUserById = async (id: number) => {
   try {
     return await axios.get<UserResponse>(`http://localhost:8080/api/user/${id}`);
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+export const getPostById = async (id: number) => {
+  try {
+    return await axios.get<PostResponse>(`http://localhost:8080/api/post/${id}`);
   } catch (e) {
     if (axios.isAxiosError(e)) {
       console.log("Error message: ", e.message);
