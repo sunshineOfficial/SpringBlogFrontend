@@ -10,6 +10,7 @@ interface Props {
 const Navbar = ({ token, setToken }: Props) => {
   const onLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setToken("");
+    window.localStorage.setItem("token", "");
   }
   
   return (
