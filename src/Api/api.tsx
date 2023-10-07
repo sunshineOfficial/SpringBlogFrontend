@@ -202,3 +202,27 @@ export const updatePost = async (id: number, request: PostRequest, token: string
     }
   }
 }
+
+export const deletePost = async (id: number, token: string) => {
+  try {
+    return await axios.delete<string>(
+      `http://localhost:8080/api/post/${id}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}

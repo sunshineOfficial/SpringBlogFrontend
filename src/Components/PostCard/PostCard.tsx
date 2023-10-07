@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {PostResponse} from "../../Api/Interfaces/post";
 import {Link} from "react-router-dom";
-import {getUserById} from "../../Api/api";
+import {deletePost, getUserById} from "../../Api/api";
 import {UserResponse} from "../../Api/Interfaces/user";
 import {RoleResponse} from "../../Api/Interfaces/role";
+import {useToken} from "../../App";
 
 interface Props {
   id: string;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const PostCard = ({ id, postResponse, currentUser, role }: Props) => {
+  const { token } = useToken();
   const [user, setUser] = useState<UserResponse | null>(null);
   
   const createdAt = new Date(postResponse.createdAt);
@@ -28,6 +30,11 @@ const PostCard = ({ id, postResponse, currentUser, role }: Props) => {
 
     getUserInit();
   }, [postResponse.userId]);
+
+  const onDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    await deletePost(postResponse.id, token);
+    window.location.reload();
+  };
   
   return (
     <div id={id} key={id} className="max-w-sm mb-3 p-6 bg-white border border-gray-200 rounded-lg shadow">
@@ -36,10 +43,15 @@ const PostCard = ({ id, postResponse, currentUser, role }: Props) => {
       <Link to={`/post/${postResponse.id}`} className="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300">
         Read
       </Link>
-      { (currentUser?.id === user?.id || role?.name !== "USER") &&
-          <Link to={`/post/update/${postResponse.id}`} className="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-              Update
-          </Link>
+      { currentUser !== null && (currentUser?.id === user?.id || role?.name !== "USER") && 
+          <>
+              <Link to={`/post/update/${postResponse.id}`} className="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                  Update
+              </Link>
+              <button type="submit" onClick={onDeleteClick} className="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
+                  Delete
+              </button>
+          </>
       }
     </div>
   );
