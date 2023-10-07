@@ -44,7 +44,7 @@ const CreatePostPage = (props: Props) => {
     <>
       <PageHeader>Create post</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      <PostForm onSubmit={onCreateSubmit} onChange={onCreateChange} />
+      <PostForm onSubmit={onCreateSubmit} onChange={onCreateChange} buttonName="Create" />
     </>
   );
 };

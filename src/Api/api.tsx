@@ -176,3 +176,29 @@ export const getRoleById = async (id: number) => {
     }
   }
 }
+
+export const updatePost = async (id: number, request: PostRequest, token: string) => {
+  try {
+    return await axios.put<PostResponse>(
+      `http://localhost:8080/api/post/${id}`,
+      request,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
