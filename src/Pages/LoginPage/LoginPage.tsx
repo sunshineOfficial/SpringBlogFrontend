@@ -28,6 +28,7 @@ const LoginPage = (props: Props) => {
     if (typeof response !== "string") {
       if (response.status === 200) {
         setToken(response.data.accessToken);
+        window.localStorage.setItem("token", response.data.accessToken);
       } else {
         setError(response.data.message);
       }

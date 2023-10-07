@@ -10,7 +10,9 @@ interface AppContext {
 }
 
 function App() {
-  const [token, setToken] = useState<string>("");
+  const [token, setToken] = useState<string>(
+    window.localStorage.getItem("token") || ""
+  );
   
   return (
     <>
