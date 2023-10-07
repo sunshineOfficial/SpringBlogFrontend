@@ -9,7 +9,7 @@ interface Props {
   initContent?: string;
 }
 
-const PostForm = ({ onSubmit, onChange, buttonName, initTitle = "", initContent = "" }: Props) => {
+const PostForm = ({ onSubmit, onChange, buttonName, initTitle, initContent }: Props) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="mb-6">
