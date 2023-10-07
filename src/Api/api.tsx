@@ -2,6 +2,7 @@ import axios from "axios";
 import {LoginRequest, LoginResponse, RegisterRequest} from "./Interfaces/auth";
 import {PageResponse, PostRequest, PostResponse} from "./Interfaces/post";
 import {UserResponse} from "./Interfaces/user";
+import {RoleResponse} from "./Interfaces/role";
 
 export const login = async (request: LoginRequest) => {
   try {
@@ -124,6 +125,44 @@ export const createPost = async (request: PostRequest, token: string) => {
         }
       }
     );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+export const getCurrentUser = async (token: string) => {
+  try {
+    return await axios.get<UserResponse>("http://localhost:8080/api/user/current", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+export const getRoleById = async (id: number) => {
+  try {
+    return await axios.get<RoleResponse>(`http://localhost:8080/api/role/${id}`);
   } catch (e) {
     if (axios.isAxiosError(e)) {
       console.log("Error message: ", e.message);
