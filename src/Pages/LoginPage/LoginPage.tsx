@@ -3,15 +3,15 @@ import LoginForm from "../../Components/LoginForm/LoginForm";
 import PageHeader from "../../Components/PageHeader/PageHeader";
 import {login} from "../../Api/api";
 import {LoginRequest} from "../../Api/Interfaces/auth";
-import {useToken} from "../../App";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useOutletContext} from "react-router-dom";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
+import {AppContext} from "../../App";
 
 interface Props {
 }
 
 const LoginPage = (props: Props) => {
-  const { token, setToken } = useToken();
+  const { setToken, user } = useOutletContext<AppContext>();
   const [formData, setFormData] = useState<LoginRequest>({
     username: "",
     password: ""
@@ -43,8 +43,8 @@ const LoginPage = (props: Props) => {
   }
 
   useEffect(() => {
-    if (token !== "") navigate("/profile");
-  }, [token]);
+    if (user !== null) navigate("/profile");
+  }, [user]);
   
   return (
     <>

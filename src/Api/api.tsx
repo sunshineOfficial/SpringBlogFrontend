@@ -3,7 +3,7 @@ import {LoginRequest, LoginResponse, RegisterRequest} from "./Interfaces/auth";
 import {PostPageResponse, PostRequest, PostResponse} from "./Interfaces/post";
 import {UserResponse} from "./Interfaces/user";
 import {RoleResponse} from "./Interfaces/role";
-import {CommentPageResponse, CommentRequest} from "./Interfaces/comment";
+import {CommentPageResponse, CommentRequest, CommentResponse} from "./Interfaces/comment";
 
 export const login = async (request: LoginRequest) => {
   try {
@@ -63,7 +63,7 @@ export const getAllPosts = async (
   try {
     let request: string = `http://localhost:8080/api/post?pageNumber=${pageNumber}&pageSize=${pageSize}`;
     if (userId) request = request.concat(`&userId=${userId}`);
-    if (published) request = request.concat(`&published=${published}`);
+    if (published !== null) request = request.concat(`&published=${published}`);
     
     return await axios.get<PostPageResponse>(request);
   } catch (e) {
@@ -238,7 +238,7 @@ export const getAllComments = async (
     let request: string = `http://localhost:8080/api/comment?pageNumber=${pageNumber}&pageSize=${pageSize}`;
     if (userId) request = request.concat(`&userId=${userId}`);
     if (postId) request = request.concat(`&postId=${postId}`);
-    if (published) request = request.concat(`&published=${published}`);
+    if (published !== null) request = request.concat(`&published=${published}`);
 
     return await axios.get<CommentPageResponse>(request);
   } catch (e) {
@@ -285,6 +285,56 @@ export const deleteComment = async (id: number, token: string) => {
   try {
     return await axios.delete<string>(
       `http://localhost:8080/api/comment/${id}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+export const publishPost = async (id: number, token: string) => {
+  try {
+    return await axios.put<PostResponse>(
+      `http://localhost:8080/api/post/${id}/publish`,
+      {},
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+export const publishComment = async (id: number, token: string) => {
+  try {
+    return await axios.put<CommentResponse>(
+      `http://localhost:8080/api/comment/${id}/publish`,
+      {},
       {
         headers: {
           "Authorization": `Bearer ${token}`

@@ -1,26 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {PostResponse} from "../../Api/Interfaces/post";
-import {createComment, getAllComments, getCurrentUser, getPostById, getRoleById} from "../../Api/api";
+import {createComment, getAllComments, getPostById} from "../../Api/api";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import Post from "../../Components/Post/Post";
 import {CommentPageResponse} from "../../Api/Interfaces/comment";
-import {UserResponse} from "../../Api/Interfaces/user";
-import {RoleResponse} from "../../Api/Interfaces/role";
-import {useToken} from "../../App";
 import CommentCardList from "../../Components/CommentCardList/CommentCardList";
 import CommentArea from "../../Components/CommentArea/CommentArea";
+import {useOutletContext} from "react-router-dom";
+import {AppContext} from "../../App";
 
 interface Props {
 }
 
 const PostPage = (props: Props) => {
-  const { token } = useToken();
+  const { token, user, role } = useOutletContext<AppContext>();
   const postId = Number(useParams()["id"]);
-  const [postResponse, setPostResponse] = useState<PostResponse | null>(null);
-  const [pageResponse, setPageResponse] = useState<CommentPageResponse | null>(null);
-  const [user, setUser] = useState<UserResponse | null>(null);
-  const [role, setRole] = useState<RoleResponse | null>(null);
+  const [postPageResponse, setPostPageResponse] = useState<PostResponse | null>(null);
+  const [commentPageResponse, setCommentPageResponse] = useState<CommentPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   let commentContent = "";
 
@@ -30,7 +27,7 @@ const PostPage = (props: Props) => {
 
       if (typeof response !== "string") {
         if (response.status === 200) {
-          setPostResponse(response.data);
+          setPostPageResponse(response.data);
         } else {
           setError(response.data.message);
         }
@@ -44,7 +41,7 @@ const PostPage = (props: Props) => {
 
       if (typeof response !== "string") {
         if (response.status === 200) {
-          setPageResponse(response.data);
+          setCommentPageResponse(response.data);
         } else {
           setError(response.data.message);
         }
@@ -53,23 +50,8 @@ const PostPage = (props: Props) => {
       }
     };
 
-    const getUserInit = async () => {
-      const response = await getCurrentUser(token);
-
-      if (typeof response !== "string" && response.status === 200) {
-        setUser(response.data);
-
-        const roleResponse = await getRoleById(response.data.roleId);
-
-        if (typeof roleResponse !== "string" && roleResponse.status === 200) {
-          setRole(roleResponse.data);
-        }
-      }
-    };
-
     getPostByIdInit();
     getAllCommentsInit();
-    getUserInit();
   }, [postId, token]);
 
   const onCreateCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -98,10 +80,10 @@ const PostPage = (props: Props) => {
   return (
     <>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      { postResponse && <Post postResponse={postResponse} /> }
+      { postPageResponse && <Post postResponse={postPageResponse} /> }
       <h3 className="text-3xl font-bold mb-3">Comments</h3>
-      { pageResponse && <CommentCardList pageResponse={pageResponse} currentUser={user} role={role} /> }
-      { token !== "" && <CommentArea onChange={onCreateCommentChange} onSubmit={onCreateCommentSubmit} /> }
+      { commentPageResponse && <CommentCardList pageResponse={commentPageResponse} currentUser={user} role={role} /> }
+      { user !== null && <CommentArea onChange={onCreateCommentChange} onSubmit={onCreateCommentSubmit} /> }
     </>
   );
 };

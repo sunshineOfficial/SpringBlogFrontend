@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {useToken} from "../../App";
 import {PostRequest} from "../../Api/Interfaces/post";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useOutletContext} from "react-router-dom";
 import {getPostById, updatePost} from "../../Api/api";
 import PageHeader from "../../Components/PageHeader/PageHeader";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import PostForm from "../../Components/PostForm/PostForm";
 import {useParams} from "react-router";
+import {AppContext} from "../../App";
 
 interface Props {
 }
 
 const UpdatePostPage = (props: Props) => {
-  const { token } = useToken();
+  const { token } = useOutletContext<AppContext>();
   const postId = Number(useParams()["id"]);
   const [formData, setFormData] = useState<PostRequest>({
     content: "", title: ""

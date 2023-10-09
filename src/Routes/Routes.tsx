@@ -7,6 +7,7 @@ import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 import PostPage from "../Pages/PostPage/PostPage";
 import CreatePostPage from "../Pages/CreatePostPage/CreatePostPage";
 import UpdatePostPage from "../Pages/UpdatePostPage/UpdatePostPage";
+import ModeratorPage from "../Pages/ModeratorPage/ModeratorPage";
 
 export const router = createBrowserRouter([{
   path: "/",
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([{
     { path: "profile", element: <ProfilePage /> },
     { path: "post/:id", element: <PostPage /> },
     { path: "post/create", element: <CreatePostPage /> },
-    { path: "post/update/:id", element: <UpdatePostPage /> }
+    { path: "post/update/:id", element: <UpdatePostPage /> },
+    { path: "moderator", element: <ModeratorPage /> }
   ]
 }]);

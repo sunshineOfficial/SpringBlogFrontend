@@ -1,17 +1,17 @@
 import React, {useState} from "react";
 import PageHeader from "../../Components/PageHeader/PageHeader";
 import PostForm from "../../Components/PostForm/PostForm";
-import {useToken} from "../../App";
 import {PostRequest} from "../../Api/Interfaces/post";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useOutletContext} from "react-router-dom";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import {createPost} from "../../Api/api";
+import {AppContext} from "../../App";
 
 interface Props {
 }
 
 const CreatePostPage = (props: Props) => {
-  const { token } = useToken();
+  const { token } = useOutletContext<AppContext>();
   const [formData, setFormData] = useState<PostRequest>({
     content: "", title: ""
   });
