@@ -40,7 +40,7 @@ const PostPage = (props: Props) => {
     };
 
     const getAllCommentsInit = async () => {
-      const response = await getAllComments();
+      const response = await getAllComments(0, 10, null, postId);
 
       if (typeof response !== "string") {
         if (response.status === 200) {
