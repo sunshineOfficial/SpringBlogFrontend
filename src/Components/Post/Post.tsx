@@ -30,7 +30,7 @@ const Post = ({ postResponse }: Props) => {
       <h2 className="text-4xl font-extrabold">{postResponse.title} <small className="ml-2 font-semibold text-gray-500">by {user?.username}</small></h2>
       <p className="text-gray-500">Author: {user?.firstName} {user?.lastName}</p>
       <p className="mb-3 text-gray-500">Created at: {createdAt.toLocaleString()} Updated at: {updatedAt.toLocaleString()}</p>
-      <p className="mb-3 text-lg text-gray-500 md:text-xl">{postResponse.content}</p>
+      <p className="mb-6 text-lg text-gray-500 md:text-xl">{postResponse.content}</p>
     </>
   );
 };

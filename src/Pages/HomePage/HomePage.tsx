@@ -3,7 +3,7 @@ import PageHeader from "../../Components/PageHeader/PageHeader";
 import {getAllPosts, getCurrentUser, getRoleById} from "../../Api/api";
 import PostCardList from "../../Components/PostCardList/PostCardList";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
-import {PageResponse} from "../../Api/Interfaces/post";
+import {PostPageResponse} from "../../Api/Interfaces/post";
 import Button from "../../Components/Button/Button";
 import {useToken} from "../../App";
 import {Link} from "react-router-dom";
@@ -17,7 +17,7 @@ const HomePage = (props: Props) => {
   const { token } = useToken();
   const [user, setUser] = useState<UserResponse | null>(null);
   const [role, setRole] = useState<RoleResponse | null>(null);
-  const [pageResponse, setPageResponse] = useState<PageResponse | null>(null);
+  const [pageResponse, setPageResponse] = useState<PostPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

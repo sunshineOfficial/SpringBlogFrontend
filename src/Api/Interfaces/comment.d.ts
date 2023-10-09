@@ -1,7 +1,7 @@
-export interface PostResponse {
+export interface CommentResponse {
   id: number;
   userId: number;
-  title: string;
+  postId: number;
   content: string;
   published: boolean;
   createdAt: number;
@@ -9,16 +9,16 @@ export interface PostResponse {
   publishedAt: number;
 }
 
-export interface PostPageResponse {
-  content: PostResponse[];
+export interface CommentRequest {
+  postId: number;
+  content: string;
+}
+
+export interface CommentPageResponse {
+  content: CommentResponse[];
   pageNumber: number;
   pageSize: number;
   totalElements: number;
   totalPages: number;
   last: boolean;
-}
-
-export interface PostRequest {
-  title: string;
-  content: string;
 }
