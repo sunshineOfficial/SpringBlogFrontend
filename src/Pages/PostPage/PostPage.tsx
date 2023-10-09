@@ -101,7 +101,7 @@ const PostPage = (props: Props) => {
       { postResponse && <Post postResponse={postResponse} /> }
       <h3 className="text-3xl font-bold mb-3">Comments</h3>
       { pageResponse && <CommentCardList pageResponse={pageResponse} currentUser={user} role={role} /> }
-      <CommentArea onChange={onCreateCommentChange} onSubmit={onCreateCommentSubmit} />
+      { token !== "" && <CommentArea onChange={onCreateCommentChange} onSubmit={onCreateCommentSubmit} /> }
     </>
   );
 };
