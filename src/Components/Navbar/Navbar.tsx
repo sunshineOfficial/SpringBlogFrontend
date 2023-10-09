@@ -11,6 +11,7 @@ const Navbar = ({ token, setToken }: Props) => {
   const onLogoutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setToken("");
     window.localStorage.setItem("token", "");
+    window.location.reload();
   }
   
   return (
