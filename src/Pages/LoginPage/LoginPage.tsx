@@ -29,6 +29,8 @@ const LoginPage = (props: Props) => {
       if (response.status === 200) {
         setToken(response.data.accessToken);
         window.localStorage.setItem("token", response.data.accessToken);
+      } else if (response.status === 401) {
+        setError("Login or/and password are incorrect")
       } else {
         setError(response.data.message);
       }
