@@ -6,6 +6,7 @@ import {LoginRequest} from "../../Api/Interfaces/auth";
 import {useNavigate, useOutletContext} from "react-router-dom";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import {AppContext} from "../../App";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 }
@@ -20,8 +21,8 @@ const LoginPage = (props: Props) => {
     password: ""
   });
   const [error, setError] = useState<string | null>(null);
-  
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   const onLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ const LoginPage = (props: Props) => {
         setToken(response.data.accessToken);
         window.localStorage.setItem("token", response.data.accessToken);
       } else if (response.status === 401) {
-        setError("Login or/and password are incorrect")
+        setError(t("login_error"));
       } else {
         setError(response.data.message);
       }
@@ -53,7 +54,7 @@ const LoginPage = (props: Props) => {
   
   return (
     <>
-      <PageHeader>Login</PageHeader>
+      <PageHeader>{t("login")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
       <LoginForm onSubmit={onLoginSubmit} onChange={onLoginChange} />
     </>

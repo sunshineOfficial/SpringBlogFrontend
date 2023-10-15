@@ -5,6 +5,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import {UserResponse} from "./Api/Interfaces/user";
 import {RoleResponse} from "./Api/Interfaces/role";
 import {getCurrentUser, getRoleById} from "./Api/api";
+import {useTranslation} from "react-i18next";
 
 export interface AppContext {
   token: string;
@@ -22,6 +23,7 @@ function App() {
   const [token, setToken] = useState<string>(window.localStorage.getItem("token") || "");
   const [user, setUser] = useState<UserResponse | null>(null);
   const [role, setRole] = useState<RoleResponse | null>(null);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const getUserInit = async () => {
@@ -50,11 +52,15 @@ function App() {
     setToken("");
     window.localStorage.setItem("token", "");
     window.location.reload();
-  }
+  };
+  
+  const onSwitchLanguageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    i18n.changeLanguage(i18n.language === "ru" ? "en" : "ru");
+  };
   
   return (
     <>
-      <Navbar user={user} role={role} onLogoutClick={onLogoutClick} />
+      <Navbar user={user} role={role} onLogoutClick={onLogoutClick} onSwitchLanguageClick={onSwitchLanguageClick} />
       <div className="max-w-screen-xl mx-auto p-4">
         <Outlet context={{token, setToken, user, setUser, role, setRole}} />
       </div>

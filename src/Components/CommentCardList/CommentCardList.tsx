@@ -5,6 +5,7 @@ import {CommentPageResponse} from "../../Api/Interfaces/comment";
 import {v4 as uuidv4} from "uuid";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import CommentCard from "../CommentCard/CommentCard";
+import {useTranslation} from "react-i18next";
 
 interface Props {
   pageResponse: CommentPageResponse;
@@ -20,6 +21,8 @@ interface Props {
  * @param role         роль пользователя
  */
 const CommentCardList = ({ pageResponse, currentUser, role }: Props) => {
+  const { t } = useTranslation();
+  
   return (
     <div>
       {pageResponse.content.length > 0 ? (
@@ -27,7 +30,7 @@ const CommentCardList = ({ pageResponse, currentUser, role }: Props) => {
           return <CommentCard id={`comment${comment.id}`} key={uuidv4()} commentResponse={comment} currentUser={currentUser} role={role} />
         })
       ) : (
-        <ErrorMessage>No comments!</ErrorMessage>
+        <ErrorMessage>{t("no_comments")}</ErrorMessage>
       )}
     </div>
   );

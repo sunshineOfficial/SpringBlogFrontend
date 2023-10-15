@@ -5,6 +5,7 @@ import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 import {register} from "../../Api/api";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 }
@@ -17,8 +18,8 @@ const RegisterPage = (props: Props) => {
     firstName: "", lastName: "", password: "", username: ""
   });
   const [error, setError] = useState<string | null>(null);
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +44,7 @@ const RegisterPage = (props: Props) => {
   
   return (
     <>
-      <PageHeader>Register</PageHeader>
+      <PageHeader>{t("register")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
       <RegisterForm onSubmit={onRegisterSubmit} onChange={onRegisterChange} />
     </>

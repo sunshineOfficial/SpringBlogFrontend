@@ -9,6 +9,7 @@ import PostCardList from "../../Components/PostCardList/PostCardList";
 import {CommentPageResponse} from "../../Api/Interfaces/comment";
 import CommentCardList from "../../Components/CommentCardList/CommentCardList";
 import Pagination from "../../Components/Pagination/Pagination";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 }
@@ -23,6 +24,7 @@ const ModeratorPage = (props: Props) => {
   const [error, setError] = useState<string | null>(null);
   const [postPageNumber, setPostPageNumber] = useState<number>(0);
   const [commentPageNumber, setCommentPageNumber] = useState<number>(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getAllPostsInit = async () => {
@@ -62,11 +64,11 @@ const ModeratorPage = (props: Props) => {
   
   return (
     <>
-      <PageHeader>Unpublished posts</PageHeader>
+      <PageHeader>{t("unpublished_posts")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
       { postPageResponse && <PostCardList pageResponse={postPageResponse} currentUser={user} role={role} /> }
       { postPageResponse && <Pagination pageNumber={postPageNumber} totalPages={postPageResponse.totalPages} last={postPageResponse.last} setPageNumber={setPostPageNumber} /> }
-      <PageHeader>Unpublished comments</PageHeader>
+      <PageHeader>{t("unpublished_comments")}</PageHeader>
       { commentPageResponse && <CommentCardList pageResponse={commentPageResponse} currentUser={user} role={role} /> }
       { commentPageResponse && <Pagination pageNumber={commentPageNumber} totalPages={commentPageResponse.totalPages} last={commentPageResponse.last} setPageNumber={setCommentPageNumber} /> }
     </>

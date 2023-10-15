@@ -6,6 +6,7 @@ import {useNavigate, useOutletContext} from "react-router-dom";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import {createPost} from "../../Api/api";
 import {AppContext} from "../../App";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 }
@@ -19,8 +20,8 @@ const CreatePostPage = (props: Props) => {
     content: "", title: ""
   });
   const [error, setError] = useState<string | null>(null);
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,9 +46,9 @@ const CreatePostPage = (props: Props) => {
   
   return (
     <>
-      <PageHeader>Create post</PageHeader>
+      <PageHeader>{t("create_post")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      <PostForm onSubmit={onCreateSubmit} onChange={onCreateChange} buttonName="Create" />
+      <PostForm onSubmit={onCreateSubmit} onChange={onCreateChange} buttonName={t("create")} />
     </>
   );
 };

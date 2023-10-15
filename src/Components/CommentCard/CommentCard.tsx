@@ -5,6 +5,7 @@ import {CommentResponse} from "../../Api/Interfaces/comment";
 import {deleteComment, getUserById, publishComment} from "../../Api/api";
 import {useOutletContext} from "react-router-dom";
 import {AppContext} from "../../App";
+import {useTranslation} from "react-i18next";
 
 interface Props {
   id: string;
@@ -24,10 +25,11 @@ interface Props {
 const CommentCard = ({ id, commentResponse, currentUser, role }: Props) => {
   const { token } = useOutletContext<AppContext>();
   const [user, setUser] = useState<UserResponse | null>(null);
+  const { t } = useTranslation();
 
   let publishedText;
-  if (commentResponse.published) publishedText = `Published at: ${new Date(commentResponse.publishedAt).toLocaleString()}`;
-  else publishedText = "Not published";
+  if (commentResponse.published) publishedText = t("published_at") + new Date(commentResponse.publishedAt).toLocaleString();
+  else publishedText = t("not_published");
 
   useEffect(() => {
     const getUserInit = async () => {
@@ -59,14 +61,14 @@ const CommentCard = ({ id, commentResponse, currentUser, role }: Props) => {
       { currentUser !== null && (currentUser?.id === user?.id || role?.name !== "USER") &&
           <>
               <button type="submit" onClick={onDeleteClick} className="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
-                  Delete
+                {t("delete")}
               </button>
           </>
       }
       { currentUser !== null && role?.name !== "USER" && !commentResponse.published &&
           <>
               <button type="submit" onClick={onPublishClick} className="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                  Publish
+                {t("publish")}
               </button>
           </>
       }

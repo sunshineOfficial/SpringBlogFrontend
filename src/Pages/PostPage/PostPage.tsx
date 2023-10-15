@@ -10,6 +10,7 @@ import CommentArea from "../../Components/CommentArea/CommentArea";
 import {useOutletContext} from "react-router-dom";
 import {AppContext} from "../../App";
 import Pagination from "../../Components/Pagination/Pagination";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 }
@@ -24,6 +25,7 @@ const PostPage = (props: Props) => {
   const [commentPageResponse, setCommentPageResponse] = useState<CommentPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(0);
+  const { t } = useTranslation();
   let commentContent = "";
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const PostPage = (props: Props) => {
     <>
       { error && <ErrorMessage>{error}</ErrorMessage> }
       { postPageResponse && <Post postResponse={postPageResponse} /> }
-      <h3 className="text-3xl font-bold mb-3">Comments</h3>
+      <h3 className="text-3xl font-bold mb-3">{t("comments")}</h3>
       { commentPageResponse && <CommentCardList pageResponse={commentPageResponse} currentUser={user} role={role} /> }
       { commentPageResponse && <Pagination pageNumber={pageNumber} totalPages={commentPageResponse.totalPages} last={commentPageResponse.last} setPageNumber={setPageNumber} /> }
       { user !== null && <CommentArea onChange={onCreateCommentChange} onSubmit={onCreateCommentSubmit} /> }

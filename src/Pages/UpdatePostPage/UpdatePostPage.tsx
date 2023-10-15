@@ -7,6 +7,7 @@ import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import PostForm from "../../Components/PostForm/PostForm";
 import {useParams} from "react-router";
 import {AppContext} from "../../App";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 }
@@ -21,8 +22,8 @@ const UpdatePostPage = (props: Props) => {
     content: "", title: ""
   });
   const [error, setError] = useState<string | null>(null);
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getPostByIdInit = async () => {
@@ -65,9 +66,9 @@ const UpdatePostPage = (props: Props) => {
 
   return (
     <>
-      <PageHeader>Update post</PageHeader>
+      <PageHeader>{t("update_post")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      <PostForm onSubmit={onUpdateSubmit} onChange={onUpdateChange} buttonName="Update" initTitle={formData.title} initContent={formData.content} />
+      <PostForm onSubmit={onUpdateSubmit} onChange={onUpdateChange} buttonName={t("update")} initTitle={formData.title} initContent={formData.content} />
     </>
   );
 };
