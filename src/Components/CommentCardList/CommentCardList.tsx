@@ -12,6 +12,13 @@ interface Props {
   role: RoleResponse | null;
 }
 
+/**
+ * Список комментариев.
+ * 
+ * @param pageResponse объект, содержащий информацию о комментариях
+ * @param currentUser  пользователь, находящийся в данный момент в системе
+ * @param role         роль пользователя
+ */
 const CommentCardList = ({ pageResponse, currentUser, role }: Props) => {
   return (
     <div>

@@ -13,6 +13,9 @@ import Pagination from "../../Components/Pagination/Pagination";
 interface Props {
 }
 
+/**
+ * Страница модератора.
+ */
 const ModeratorPage = (props: Props) => {
   const { user, role} = useOutletContext<AppContext>();
   const [postPageResponse, setPostPageResponse] = useState<PostPageResponse | null>(null);

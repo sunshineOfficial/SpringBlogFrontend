@@ -9,6 +9,9 @@ import {useNavigate} from "react-router-dom";
 interface Props {
 }
 
+/**
+ * Страница регистрации.
+ */
 const RegisterPage = (props: Props) => {
   const [formData, setFormData] = useState<RegisterRequest>({
     firstName: "", lastName: "", password: "", username: ""

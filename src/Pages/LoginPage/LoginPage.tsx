@@ -10,6 +10,9 @@ import {AppContext} from "../../App";
 interface Props {
 }
 
+/**
+ * Страница входа в систему.
+ */
 const LoginPage = (props: Props) => {
   const { setToken, user } = useOutletContext<AppContext>();
   const [formData, setFormData] = useState<LoginRequest>({

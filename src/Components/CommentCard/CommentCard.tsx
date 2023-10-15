@@ -13,6 +13,14 @@ interface Props {
   role: RoleResponse | null;
 }
 
+/**
+ * Карточка комментария.
+ * 
+ * @param id              идентификатор комментария
+ * @param commentResponse объект, содержащий информацию о комментарии
+ * @param currentUser     пользователь, находящийся в данный момент в системе
+ * @param role            роль пользователя
+ */
 const CommentCard = ({ id, commentResponse, currentUser, role }: Props) => {
   const { token } = useOutletContext<AppContext>();
   const [user, setUser] = useState<UserResponse | null>(null);

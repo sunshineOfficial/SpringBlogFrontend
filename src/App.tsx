@@ -15,6 +15,9 @@ export interface AppContext {
   setRole: React.Dispatch<React.SetStateAction<RoleResponse | null>>;
 }
 
+/**
+ * Основной компонент приложения.
+ */
 function App() {
   const [token, setToken] = useState<string>(window.localStorage.getItem("token") || "");
   const [user, setUser] = useState<UserResponse | null>(null);

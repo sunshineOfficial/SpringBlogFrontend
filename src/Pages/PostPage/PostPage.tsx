@@ -14,6 +14,9 @@ import Pagination from "../../Components/Pagination/Pagination";
 interface Props {
 }
 
+/**
+ * Страница поста.
+ */
 const PostPage = (props: Props) => {
   const { token, user, role } = useOutletContext<AppContext>();
   const postId = Number(useParams()["id"]);

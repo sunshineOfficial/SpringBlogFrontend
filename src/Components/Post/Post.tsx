@@ -7,6 +7,11 @@ interface Props {
   postResponse: PostResponse;
 }
 
+/**
+ * Блок поста.
+ * 
+ * @param postResponse объект, содержащий информацию о посте
+ */
 const Post = ({ postResponse }: Props) => {
   const [user, setUser] = useState<UserResponse | null>(null);
 

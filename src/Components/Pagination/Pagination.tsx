@@ -9,6 +9,14 @@ interface Props {
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
+/**
+ * Пагинация.
+ * 
+ * @param pageNumber    номер текущей страницы
+ * @param totalPages    общее количество страниц
+ * @param last          флаг, указывающий, является ли текущая страница последней
+ * @param setPageNumber функция для смены номера текущей страницы
+ */
 const Pagination = ({ pageNumber, totalPages, last, setPageNumber }: Props) => {
   const onPreviousClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setPageNumber(pageNumber - 1);

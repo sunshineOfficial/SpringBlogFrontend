@@ -7,6 +7,12 @@ interface Props {
   roleResponse: RoleResponse;
 }
 
+/**
+ * Блок профиля.
+ * 
+ * @param userResponse пользователь
+ * @param roleResponse роль пользователя
+ */
 const Profile = ({ userResponse, roleResponse }: Props) => {
   return (
     <div className="mb-6">

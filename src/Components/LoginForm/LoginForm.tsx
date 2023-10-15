@@ -6,6 +6,12 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * Форма аутентификации пользователя.
+ * 
+ * @param onSubmit событие, вызываемое при нажатии кнопки входа
+ * @param onChange событие, вызываемое при изменении содержимого формы
+ */
 const LoginForm = ({ onSubmit, onChange }: Props) => {
   return (
     <form onSubmit={onSubmit}>

@@ -5,6 +5,11 @@ import {UserResponse} from "./Interfaces/user";
 import {RoleResponse} from "./Interfaces/role";
 import {CommentPageResponse, CommentRequest, CommentResponse} from "./Interfaces/comment";
 
+/**
+ * Аутентифицирует пользователя.
+ * 
+ * @param request объект запроса на аутентификацию
+ */
 export const login = async (request: LoginRequest) => {
   try {
     return await axios.post<LoginResponse>(
@@ -30,6 +35,11 @@ export const login = async (request: LoginRequest) => {
   }
 }
 
+/**
+ * Регистрирует нового пользователя.
+ * 
+ * @param request объект запроса на регистрацию
+ */
 export const register = async (request: RegisterRequest) => {
   try {
     return await axios.post<number>(
@@ -55,6 +65,14 @@ export const register = async (request: RegisterRequest) => {
   }
 }
 
+/**
+ * Получает список постов с возможностью фильтрации по параметрам.
+ *
+ * @param pageNumber номер страницы
+ * @param pageSize   количество постов на странице
+ * @param userId     идентификатор пользователя, чьи посты нужно отобразить
+ * @param published  флаг, указывающий, опубликованы ли посты
+ */
 export const getAllPosts = async (
   pageNumber: number = 0,
   pageSize: number = 10,
@@ -80,6 +98,11 @@ export const getAllPosts = async (
   }
 }
 
+/**
+ * Получает пользователя по указанному идентификатору.
+ *
+ * @param id идентификатор пользователя
+ */
 export const getUserById = async (id: number) => {
   try {
     return await axios.get<UserResponse>(`http://localhost:8080/api/user/${id}`);
@@ -97,6 +120,11 @@ export const getUserById = async (id: number) => {
   }
 }
 
+/**
+ * Получает пост по указанному идентификатору.
+ *
+ * @param id идентификатор поста
+ */
 export const getPostById = async (id: number) => {
   try {
     return await axios.get<PostResponse>(`http://localhost:8080/api/post/${id}`);
@@ -114,6 +142,12 @@ export const getPostById = async (id: number) => {
   }
 }
 
+/**
+ * Создает новый пост.
+ *
+ * @param request запрос на создание поста
+ * @param token   JWT-токен
+ */
 export const createPost = async (request: PostRequest, token: string) => {
   try {
     return await axios.post<number>(
@@ -140,6 +174,11 @@ export const createPost = async (request: PostRequest, token: string) => {
   }
 }
 
+/**
+ * Получает пользователя, отправившего запрос.
+ *
+ * @param token JWT-токен
+ */
 export const getCurrentUser = async (token: string) => {
   try {
     return await axios.get<UserResponse>("http://localhost:8080/api/user/current", {
@@ -161,6 +200,11 @@ export const getCurrentUser = async (token: string) => {
   }
 }
 
+/**
+ * Получает роль по указанному идентификатору.
+ *
+ * @param id идентификатор роли
+ */
 export const getRoleById = async (id: number) => {
   try {
     return await axios.get<RoleResponse>(`http://localhost:8080/api/role/${id}`);
@@ -178,6 +222,13 @@ export const getRoleById = async (id: number) => {
   }
 }
 
+/**
+ * Обновляет пост по заданному идентификатору.
+ *
+ * @param id      идентификатор поста
+ * @param request объект запроса на обновление поста
+ * @param token   JWT-токен
+ */
 export const updatePost = async (id: number, request: PostRequest, token: string) => {
   try {
     return await axios.put<PostResponse>(
@@ -204,6 +255,12 @@ export const updatePost = async (id: number, request: PostRequest, token: string
   }
 }
 
+/**
+ * Удаляет пост по указанному идентификатору.
+ *
+ * @param id    идентификатор поста
+ * @param token JWT-токен
+ */
 export const deletePost = async (id: number, token: string) => {
   try {
     return await axios.delete<string>(
@@ -228,6 +285,15 @@ export const deletePost = async (id: number, token: string) => {
   }
 }
 
+/**
+ * Получает список комментариев с возможностью фильтрации по параметрам.
+ *
+ * @param pageNumber номер страницы
+ * @param pageSize   количество комментариев на странице
+ * @param userId     идентификатор пользователя, чьи комментарии нужно отобразить
+ * @param postId     идентификатор поста, к которому относятся комментарии
+ * @param published  флаг, указывающий, опубликованы ли комментарии
+ */
 export const getAllComments = async (
   pageNumber: number = 0,
   pageSize: number = 10,
@@ -255,6 +321,12 @@ export const getAllComments = async (
   }
 }
 
+/**
+ * Создает новый комментарий.
+ *
+ * @param request запрос на создание комментария
+ * @param token   JWT-токен
+ */
 export const createComment = async (request: CommentRequest, token: string) => {
   try {
     return await axios.post<number>(
@@ -281,6 +353,12 @@ export const createComment = async (request: CommentRequest, token: string) => {
   }
 }
 
+/**
+ * Удаляет комментарий по указанному идентификатору.
+ *
+ * @param id    идентификатор комментария
+ * @param token JWT-токен
+ */
 export const deleteComment = async (id: number, token: string) => {
   try {
     return await axios.delete<string>(
@@ -305,6 +383,12 @@ export const deleteComment = async (id: number, token: string) => {
   }
 }
 
+/**
+ * Выполняет публикацию поста с указанным идентификатором.
+ *
+ * @param id    идентификатор поста
+ * @param token JWT-токен
+ */
 export const publishPost = async (id: number, token: string) => {
   try {
     return await axios.put<PostResponse>(
@@ -330,6 +414,12 @@ export const publishPost = async (id: number, token: string) => {
   }
 }
 
+/**
+ * Выполняет публикацию комментария с указанным идентификатором.
+ *
+ * @param id    идентификатор комментария
+ * @param token JWT-токен
+ */
 export const publishComment = async (id: number, token: string) => {
   try {
     return await axios.put<CommentResponse>(

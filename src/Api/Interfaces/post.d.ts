@@ -1,3 +1,6 @@
+/**
+ * Интерфейс, представляющий ответ на получение поста.
+ */
 export interface PostResponse {
   id: number;
   userId: number;
@@ -9,6 +12,9 @@ export interface PostResponse {
   publishedAt: number;
 }
 
+/**
+ * Интерфейс, представляющий объект передачи данных для страницы, содержащей список постов.
+ */
 export interface PostPageResponse {
   content: PostResponse[];
   pageNumber: number;
@@ -18,6 +24,9 @@ export interface PostPageResponse {
   last: boolean;
 }
 
+/**
+ * Интерфейс, представляющий запрос на создание поста.
+ */
 export interface PostRequest {
   title: string;
   content: string;

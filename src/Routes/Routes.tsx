@@ -9,6 +9,9 @@ import CreatePostPage from "../Pages/CreatePostPage/CreatePostPage";
 import UpdatePostPage from "../Pages/UpdatePostPage/UpdatePostPage";
 import ModeratorPage from "../Pages/ModeratorPage/ModeratorPage";
 
+/**
+ * Роутер для перемещения по страницам.
+ */
 export const router = createBrowserRouter([{
   path: "/",
   element: <App />,

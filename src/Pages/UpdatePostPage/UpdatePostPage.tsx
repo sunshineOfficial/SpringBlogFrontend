@@ -11,6 +11,9 @@ import {AppContext} from "../../App";
 interface Props {
 }
 
+/**
+ * Страница редактирования поста.
+ */
 const UpdatePostPage = (props: Props) => {
   const { token } = useOutletContext<AppContext>();
   const postId = Number(useParams()["id"]);

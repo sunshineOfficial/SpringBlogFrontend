@@ -13,6 +13,14 @@ interface Props {
   role: RoleResponse | null;
 }
 
+/**
+ * Карточка поста.
+ *
+ * @param id           идентификатор поста
+ * @param postResponse объект, содержащий информацию о посте
+ * @param currentUser  пользователь, находящийся в данный момент в системе
+ * @param role         роль пользователя
+ */
 const PostCard = ({ id, postResponse, currentUser, role }: Props) => {
   const { token } = useOutletContext<AppContext>();
   const [user, setUser] = useState<UserResponse | null>(null);

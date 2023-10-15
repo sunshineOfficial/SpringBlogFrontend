@@ -5,6 +5,12 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
+/**
+ * Блок для написания комментария.
+ * 
+ * @param onSubmit событие, вызываемое при отправке комментария
+ * @param onChange событие, вызываемое при изменении содержимого комментария
+ */
 const CommentArea = ({ onSubmit, onChange }: Props) => {
   return (
     <form onSubmit={onSubmit}>

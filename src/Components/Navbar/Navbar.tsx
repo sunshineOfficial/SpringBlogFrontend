@@ -10,6 +10,13 @@ interface Props {
   onLogoutClick: React.MouseEventHandler;
 }
 
+/**
+ * Навигационная панель.
+ * 
+ * @param user          пользователь, находящийся в данный момент в системе
+ * @param role          роль пользователя
+ * @param onLogoutClick событие, вызываемое при нажатии кнопки выхода из системы
+ */
 const Navbar = ({ user, role, onLogoutClick }: Props) => {
   return (
     <nav className="bg-green-200 border-gray-200 mb-3">

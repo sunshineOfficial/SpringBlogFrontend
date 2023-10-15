@@ -6,6 +6,13 @@ interface Props {
   isCurrent?: boolean;
 }
 
+/**
+ * Кнопка для пагинации.
+ * 
+ * @param number        номер на кнопке
+ * @param setPageNumber функция для смены номера текущей страницы
+ * @param isCurrent     флаг, указывающий, является ли номер текущей страницей
+ */
 const PaginationButton = ({ number, setPageNumber, isCurrent = false }: Props) => {
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setPageNumber(number - 1);

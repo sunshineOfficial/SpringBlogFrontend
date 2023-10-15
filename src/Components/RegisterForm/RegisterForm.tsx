@@ -6,6 +6,12 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * Форма регистрации пользователя.
+ *
+ * @param onSubmit событие, вызываемое при нажатии кнопки регистрации
+ * @param onChange событие, вызываемое при изменении содержимого формы
+ */
 const RegisterForm = ({ onSubmit, onChange }: Props) => {
   return (
     <form onSubmit={onSubmit}>

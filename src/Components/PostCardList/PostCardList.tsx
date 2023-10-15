@@ -12,6 +12,13 @@ interface Props {
   role: RoleResponse | null;
 }
 
+/**
+ * Список постов.
+ *
+ * @param pageResponse объект, содержащий информацию о постах
+ * @param currentUser  пользователь, находящийся в данный момент в системе
+ * @param role         роль пользователя
+ */
 const PostCardList = ({ pageResponse, currentUser, role }: Props) => {
   return (
     <div className="grid gap-6 grid-cols-3">

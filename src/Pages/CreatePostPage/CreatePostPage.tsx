@@ -10,6 +10,9 @@ import {AppContext} from "../../App";
 interface Props {
 }
 
+/**
+ * Страница создания поста.
+ */
 const CreatePostPage = (props: Props) => {
   const { token } = useOutletContext<AppContext>();
   const [formData, setFormData] = useState<PostRequest>({

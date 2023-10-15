@@ -12,6 +12,9 @@ import Pagination from "../../Components/Pagination/Pagination";
 interface Props {
 }
 
+/**
+ * Главная страница.
+ */
 const HomePage = (props: Props) => {
   const { user, role } = useOutletContext<AppContext>();
   const [pageResponse, setPageResponse] = useState<PostPageResponse | null>(null);

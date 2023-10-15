@@ -9,6 +9,15 @@ interface Props {
   initContent?: string;
 }
 
+/**
+ * Форма для создания и редактирования поста.
+ * 
+ * @param onSubmit    событие, вызываемое при нажатии кнопки отправки
+ * @param onChange    событие, вызываемое при изменении содержимого формы
+ * @param buttonName  надпись на кнопке
+ * @param initTitle   начальное значение заголовка поста
+ * @param initContent начальное значение содержимого поста
+ */
 const PostForm = ({ onSubmit, onChange, buttonName, initTitle, initContent }: Props) => {
   return (
     <form onSubmit={onSubmit}>
