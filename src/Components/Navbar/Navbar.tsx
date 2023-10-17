@@ -39,6 +39,11 @@ const Navbar = ({ user, role, onLogoutClick, onSwitchLanguageClick }: Props) => 
                         <NavbarLink path="/moderator">{t("moderator")}</NavbarLink>
                     </li>
                 }
+                { role?.name === "ADMIN" &&
+                    <li>
+                        <NavbarLink path="/admin">{t("admin")}</NavbarLink>
+                    </li>
+                }
                 <li>
                   <NavbarLink path="/profile">{t("profile")}</NavbarLink>
                 </li>

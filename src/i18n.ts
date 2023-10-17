@@ -62,7 +62,11 @@ i18n
         upload_image: "Загрузить изображение",
         no_image: "Нет изображения!",
         change_avatar: "Сменить аватар",
-        change_image: "Сменить изображение"
+        change_image: "Сменить изображение",
+        admin: "Администратор",
+        make_user: "Сделать ПОЛЬЗОВАТЕЛЕМ",
+        make_moderator: "Сделать МОДЕРАТОРОМ",
+        make_admin: "Сделать АДМИНИСТРАТОРОМ"
       }
     },
     en: {
@@ -117,7 +121,11 @@ i18n
         upload_image: "Upload image",
         no_image: "No image!",
         change_avatar: "Change avatar",
-        change_image: "Change image"
+        change_image: "Change image",
+        admin: "Admin",
+        make_user: "Make USER",
+        make_moderator: "Make MODERATOR",
+        make_admin: "Make ADMIN"
       }
     }
   }

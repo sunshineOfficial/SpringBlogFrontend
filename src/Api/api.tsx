@@ -1,7 +1,7 @@
 import axios from "axios";
 import {LoginRequest, LoginResponse, RegisterRequest} from "./Interfaces/auth";
 import {PostPageResponse, CreatePostRequest, PostResponse, UpdatePostRequest} from "./Interfaces/post";
-import {UserResponse} from "./Interfaces/user";
+import {UserPageResponse, UserResponse} from "./Interfaces/user";
 import {RoleResponse} from "./Interfaces/role";
 import {CommentPageResponse, CommentRequest, CommentResponse} from "./Interfaces/comment";
 
@@ -561,6 +561,127 @@ export const changePostImage = async (id: number, image: File, token: string) =>
         }
       }
     );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+/**
+ * Меняет роль пользователя.
+ *
+ * @param userId идентификатор пользователя
+ * @param roleId новая роль пользователя
+ * @param token  JWT-токен
+ */
+export const changeRole = async (userId: number, roleId: number, token: string) => {
+  try {
+    return await axios.put<UserResponse>(
+      `http://localhost:8080/api/user/${userId}/role`,
+      {
+        "roleId" : roleId
+      },
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+/**
+ * Удаляет пользователя.
+ *
+ * @param id идентификатор пользователя
+ * @param token  JWT-токен
+ */
+export const deleteUser = async (id: number, token: string) => {
+  try {
+    return await axios.delete<string>(
+      `http://localhost:8080/api/user/${id}`,
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+/**
+ * Получает список пользователей с возможностью фильтрации по параметрам.
+ *
+ * @param pageNumber номер страницы
+ * @param pageSize   количество пользователей на странице
+ * @param roleId     идентификатор роли, которую должны иметь пользователи
+ * @param roleName   название роли, которую должны иметь пользователи
+ */
+export const getAllUsers = async (
+  pageNumber: number = 0,
+  pageSize: number = 10,
+  roleId: number | null = null,
+  roleName: string | null = null) => {
+  try {
+    let request: string = `http://localhost:8080/api/user?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    if (roleId) request = request.concat(`&roleId=${roleId}`);
+    else if (roleName) request = request.concat(`&roleName=${roleName}`);
+
+    return await axios.get<UserPageResponse>(request);
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+/**
+ * Получает аватар пользователя.
+ *
+ * @param id идентификатор пользователя
+ */
+export const getUserAvatar = async (id: number) => {
+  try {
+    return await axios.get<any>(`http://localhost:8080/api/user/${id}/avatar`, {
+      responseType: "blob"
+    });
   } catch (e) {
     if (axios.isAxiosError(e)) {
       console.log("Error message: ", e.message);

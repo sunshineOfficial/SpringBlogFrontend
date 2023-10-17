@@ -10,6 +10,7 @@ import UpdatePostPage from "../Pages/UpdatePostPage/UpdatePostPage";
 import ModeratorPage from "../Pages/ModeratorPage/ModeratorPage";
 import ChangeAvatarPage from "../Pages/ChangeAvatarPage/ChangeAvatarPage";
 import ChangePostImagePage from "../Pages/ChangePostImagePage/ChangePostImagePage";
+import AdminPage from "../Pages/AdminPage/AdminPage";
 
 /**
  * Роутер для перемещения по страницам.
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([{
     { path: "post/:id/image", element: <ChangePostImagePage /> },
     { path: "post/create", element: <CreatePostPage /> },
     { path: "post/update/:id", element: <UpdatePostPage /> },
-    { path: "moderator", element: <ModeratorPage /> }
+    { path: "moderator", element: <ModeratorPage /> },
+    { path: "admin", element: <AdminPage /> }
   ]
 }]);
