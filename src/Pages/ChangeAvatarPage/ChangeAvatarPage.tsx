@@ -4,7 +4,7 @@ import {AppContext} from "../../App";
 import PageHeader from "../../Components/PageHeader/PageHeader";
 import {useTranslation} from "react-i18next";
 import Button from "../../Components/Button/Button";
-import {changeAvatar, register} from "../../Api/api";
+import {changeAvatar} from "../../Api/api";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 
 interface Props {

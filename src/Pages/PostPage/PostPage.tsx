@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {PostResponse} from "../../Api/Interfaces/post";
-import {createComment, getAllComments, getCurrentUserAvatar, getPostById, getPostImage} from "../../Api/api";
+import {createComment, getAllComments, getPostById, getPostImage} from "../../Api/api";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import Post from "../../Components/Post/Post";
 import {CommentPageResponse} from "../../Api/Interfaces/comment";
@@ -21,7 +21,7 @@ interface Props {
 const PostPage = (props: Props) => {
   const { token, user, role } = useOutletContext<AppContext>();
   const postId = Number(useParams()["id"]);
-  const [postPageResponse, setPostPageResponse] = useState<PostResponse | null>(null);
+  const [postResponse, setPostResponse] = useState<PostResponse | null>(null);
   const [commentPageResponse, setCommentPageResponse] = useState<CommentPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(0);
@@ -35,7 +35,7 @@ const PostPage = (props: Props) => {
 
       if (typeof response !== "string") {
         if (response.status === 200) {
-          setPostPageResponse(response.data);
+          setPostResponse(response.data);
         } else {
           setError(response.data.message);
         }
@@ -103,7 +103,7 @@ const PostPage = (props: Props) => {
   return (
     <>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      { postPageResponse && <Post postResponse={postPageResponse} imageSource={imageSource} /> }
+      { postResponse && <Post postResponse={postResponse} imageSource={imageSource} /> }
       <h3 className="text-3xl font-bold mb-3">{t("comments")}</h3>
       { commentPageResponse && <CommentCardList pageResponse={commentPageResponse} currentUser={user} role={role} /> }
       { commentPageResponse && <Pagination pageNumber={pageNumber} totalPages={commentPageResponse.totalPages} last={commentPageResponse.last} setPageNumber={setPageNumber} /> }

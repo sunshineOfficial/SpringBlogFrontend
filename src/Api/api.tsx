@@ -539,3 +539,38 @@ export const changeAvatar = async (avatar: File, token: string) => {
     }
   }
 }
+
+/**
+ * Меняет изображение поста.
+ *
+ * @param id    идентификатор поста
+ * @param image новое изображение поста
+ * @param token JWT-токен
+ */
+export const changePostImage = async (id: number, image: File, token: string) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    return await axios.put<PostResponse>(
+      `http://localhost:8080/api/post/${id}/image`,
+      formData,
+      {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}

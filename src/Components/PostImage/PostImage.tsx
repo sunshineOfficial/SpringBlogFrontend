@@ -11,7 +11,7 @@ interface Props {
  */
 const PostImage = ({ source }: Props) => {
   return (
-    <img className="rounded mb-3" src={source} alt="Avatar" />
+    <img className="rounded w-80 h-80 mb-3" src={source} alt="Avatar" />
   );
 };
 
