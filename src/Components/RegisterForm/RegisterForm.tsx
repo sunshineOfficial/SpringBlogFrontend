@@ -34,6 +34,10 @@ const RegisterForm = ({ onSubmit, onChange }: Props) => {
         <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900">{t("last_name")}</label>
         <input onChange={onChange} type="text" id="lastName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder={t("last_name_placeholder")} required />
       </div>
+      <div className="mb-6">
+        <label htmlFor="avatar" className="block mb-2 text-sm font-medium text-gray-900">{t("upload_avatar")}</label>
+        <input onChange={onChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none p-2.5" id="avatar" type="file" />
+      </div>
       <Button>{t("register")}</Button>
     </form>
   );

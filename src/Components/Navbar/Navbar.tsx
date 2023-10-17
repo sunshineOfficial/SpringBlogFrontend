@@ -43,7 +43,7 @@ const Navbar = ({ user, role, onLogoutClick, onSwitchLanguageClick }: Props) => 
                   <NavbarLink path="/profile">{t("profile")}</NavbarLink>
                 </li>
                 <li>
-                  <NavbarLink path="/" onClick={onLogoutClick}>{t("profile")}</NavbarLink>
+                  <NavbarLink path="/" onClick={onLogoutClick}>{t("logout")}</NavbarLink>
                 </li>
               </>
             ) : (

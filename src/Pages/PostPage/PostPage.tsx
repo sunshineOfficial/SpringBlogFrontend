@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {PostResponse} from "../../Api/Interfaces/post";
-import {createComment, getAllComments, getPostById} from "../../Api/api";
+import {createComment, getAllComments, getCurrentUserAvatar, getPostById, getPostImage} from "../../Api/api";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import Post from "../../Components/Post/Post";
 import {CommentPageResponse} from "../../Api/Interfaces/comment";
@@ -25,6 +25,7 @@ const PostPage = (props: Props) => {
   const [commentPageResponse, setCommentPageResponse] = useState<CommentPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(0);
+  const [imageSource, setImageSource] = useState<string>("");
   const { t } = useTranslation();
   let commentContent = "";
 
@@ -57,8 +58,23 @@ const PostPage = (props: Props) => {
       }
     };
 
+    const getPostImageInit = async () => {
+      const response = await getPostImage(postId);
+
+      if (typeof response !== "string") {
+        if (response.status === 200) {
+          setImageSource(URL.createObjectURL(response.data));
+        } else {
+          setError(response.data.message);
+        }
+      } else {
+        setError(response);
+      }
+    };
+
     getPostByIdInit();
     getAllCommentsInit();
+    getPostImageInit();
   }, [pageNumber, postId, token]);
 
   const onCreateCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,7 +103,7 @@ const PostPage = (props: Props) => {
   return (
     <>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      { postPageResponse && <Post postResponse={postPageResponse} /> }
+      { postPageResponse && <Post postResponse={postPageResponse} imageSource={imageSource} /> }
       <h3 className="text-3xl font-bold mb-3">{t("comments")}</h3>
       { commentPageResponse && <CommentCardList pageResponse={commentPageResponse} currentUser={user} role={role} /> }
       { commentPageResponse && <Pagination pageNumber={pageNumber} totalPages={commentPageResponse.totalPages} last={commentPageResponse.last} setPageNumber={setPageNumber} /> }

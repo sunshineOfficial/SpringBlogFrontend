@@ -4,7 +4,7 @@ import Profile from "../../Components/Profile/Profile";
 import {AppContext} from "../../App";
 import {PostPageResponse} from "../../Api/Interfaces/post";
 import {CommentPageResponse} from "../../Api/Interfaces/comment";
-import {getAllComments, getAllPosts} from "../../Api/api";
+import {getAllComments, getAllPosts, getCurrentUserAvatar} from "../../Api/api";
 import PageHeader from "../../Components/PageHeader/PageHeader";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import PostCardList from "../../Components/PostCardList/PostCardList";
@@ -19,12 +19,13 @@ interface Props {
  * Страница профиля пользователя.
  */
 const ProfilePage = (props: Props) => {
-  const { user, role } = useOutletContext<AppContext>();
+  const { user, role, token } = useOutletContext<AppContext>();
   const [postPageResponse, setPostPageResponse] = useState<PostPageResponse | null>(null);
   const [commentPageResponse, setCommentPageResponse] = useState<CommentPageResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [postPageNumber, setPostPageNumber] = useState<number>(0);
   const [commentPageNumber, setCommentPageNumber] = useState<number>(0);
+  const [imageSource, setImageSource] = useState<string>("");
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -55,17 +56,32 @@ const ProfilePage = (props: Props) => {
         setError(response);
       }
     };
+    
+    const getCurrentUserAvatarInit = async () => {
+      const response = await getCurrentUserAvatar(token);
+
+      if (typeof response !== "string") {
+        if (response.status === 200) {
+          setImageSource(URL.createObjectURL(response.data));
+        } else {
+          setError(response.data.message);
+        }
+      } else {
+        setError(response);
+      }
+    };
 
     getAllPostsInit();
     getAllCommentsInit();
-  }, [commentPageNumber, postPageNumber, user?.id]);
+    getCurrentUserAvatarInit();
+  }, [commentPageNumber, postPageNumber, token, user?.id]);
   
   if (user === null)
     return <Navigate replace to="/login" />
   
   return (
     <>
-      { user && role && <Profile userResponse={user} roleResponse={role} /> }
+      { user && role && <Profile userResponse={user} roleResponse={role} imageSource={imageSource} /> }
       <PageHeader>{t("my_posts")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
       { postPageResponse && <PostCardList pageResponse={postPageResponse} currentUser={user} role={role} /> }

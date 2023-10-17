@@ -1,6 +1,6 @@
 import axios from "axios";
 import {LoginRequest, LoginResponse, RegisterRequest} from "./Interfaces/auth";
-import {PostPageResponse, PostRequest, PostResponse} from "./Interfaces/post";
+import {PostPageResponse, CreatePostRequest, PostResponse, UpdatePostRequest} from "./Interfaces/post";
 import {UserResponse} from "./Interfaces/user";
 import {RoleResponse} from "./Interfaces/role";
 import {CommentPageResponse, CommentRequest, CommentResponse} from "./Interfaces/comment";
@@ -42,14 +42,18 @@ export const login = async (request: LoginRequest) => {
  */
 export const register = async (request: RegisterRequest) => {
   try {
+    if (request.avatar === null) throw new Error("No avatar!");
+    
+    const formData = new FormData();
+    formData.append("username", request.username);
+    formData.append("password", request.password);
+    formData.append("firstName", request.firstName);
+    formData.append("lastName", request.lastName);
+    formData.append("avatar", request.avatar);
+    
     return await axios.post<number>(
       "http://localhost:8080/api/auth/register",
-      request,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
+      formData
     );
   } catch (e) {
     if (axios.isAxiosError(e)) {
@@ -148,14 +152,20 @@ export const getPostById = async (id: number) => {
  * @param request запрос на создание поста
  * @param token   JWT-токен
  */
-export const createPost = async (request: PostRequest, token: string) => {
+export const createPost = async (request: CreatePostRequest, token: string) => {
   try {
+    if (request.image === null) throw new Error("No image!");
+    
+    const formData = new FormData();
+    formData.append("title", request.title);
+    formData.append("content", request.content);
+    formData.append("image", request.image);
+    
     return await axios.post<number>(
       "http://localhost:8080/api/post",
-      request,
+      formData,
       {
         headers: {
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       }
@@ -229,7 +239,7 @@ export const getRoleById = async (id: number) => {
  * @param request объект запроса на обновление поста
  * @param token   JWT-токен
  */
-export const updatePost = async (id: number, request: PostRequest, token: string) => {
+export const updatePost = async (id: number, request: UpdatePostRequest, token: string) => {
   try {
     return await axios.put<PostResponse>(
       `http://localhost:8080/api/post/${id}`,
@@ -431,6 +441,57 @@ export const publishComment = async (id: number, token: string) => {
         }
       }
     );
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+/**
+ * Получает аватар пользователя, отправившего запрос.
+ *
+ * @param token JWT-токен
+ */
+export const getCurrentUserAvatar = async (token: string) => {
+  try {
+    return await axios.get<any>("http://localhost:8080/api/user/current/avatar", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      responseType: "blob"
+    });
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      console.log("Error message: ", e.message);
+
+      if (e.response) return e.response;
+      return e.message;
+    } else {
+      console.log("Unexpected error: ", e);
+
+      return "An unexpected error has occurred";
+    }
+  }
+}
+
+/**
+ * Получает изображение поста по указанному идентификатору.
+ *
+ * @param id идентификатор поста
+ */
+export const getPostImage = async (id: number) => {
+  try {
+    return await axios.get<PostResponse>(`http://localhost:8080/api/post/${id}/image`, {
+      responseType: "blob"
+    });
   } catch (e) {
     if (axios.isAxiosError(e)) {
       console.log("Error message: ", e.message);

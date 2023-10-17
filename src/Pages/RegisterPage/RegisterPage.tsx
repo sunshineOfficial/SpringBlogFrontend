@@ -15,7 +15,7 @@ interface Props {
  */
 const RegisterPage = (props: Props) => {
   const [formData, setFormData] = useState<RegisterRequest>({
-    firstName: "", lastName: "", password: "", username: ""
+    firstName: "", lastName: "", password: "", username: "", avatar: null
   });
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -24,22 +24,28 @@ const RegisterPage = (props: Props) => {
   const onRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    const response = await register(formData);
+    if (formData.avatar !== null) {
+      const response = await register(formData);
 
-    if (typeof response !== "string") {
-      if (response.status === 200) {
-        navigate("/login");
+      if (typeof response !== "string") {
+        if (response.status === 200) {
+          navigate("/login");
+        } else {
+          setError(response.data.message);
+        }
       } else {
-        setError(response.data.message);
+        setError(response);
       }
     } else {
-      setError(response);
+      setError(t("no_avatar"));
     }
   }
 
   const onRegisterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData({...formData, [id]: value});
+    
+    if (id === "avatar" && e.target.files) setFormData({...formData, avatar: e.target.files[0]});
+    else setFormData({...formData, [id]: value});
   }
   
   return (

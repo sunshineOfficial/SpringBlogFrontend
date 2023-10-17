@@ -27,7 +27,16 @@ export interface PostPageResponse {
 /**
  * Интерфейс, представляющий запрос на создание поста.
  */
-export interface PostRequest {
+export interface CreatePostRequest {
+  title: string;
+  content: string;
+  image: File | null;
+}
+
+/**
+ * Интерфейс, представляющий запрос на обновление поста.
+ */
+export interface UpdatePostRequest {
   title: string;
   content: string;
 }

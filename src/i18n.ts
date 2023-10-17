@@ -56,7 +56,11 @@ i18n
         my_comments: "Мои комментарии",
         comments: "Комментарии",
         update_post: "Обновить пост",
-        home: "Домашняя страница"
+        home: "Домашняя страница",
+        upload_avatar: "Загрузить аватар",
+        no_avatar: "Нет аватара!",
+        upload_image: "Загрузить изображение",
+        no_image: "Нет изображения!"
       }
     },
     en: {
@@ -105,7 +109,11 @@ i18n
         my_comments: "My comments",
         comments: "Comments",
         update_post: "Update post",
-        home: "Home"
+        home: "Home",
+        upload_avatar: "Upload avatar",
+        no_avatar: "No avatar!",
+        upload_image: "Upload image",
+        no_image: "No image!"
       }
     }
   }

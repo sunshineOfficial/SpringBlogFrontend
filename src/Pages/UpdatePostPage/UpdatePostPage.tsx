@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {PostRequest} from "../../Api/Interfaces/post";
+import {UpdatePostRequest} from "../../Api/Interfaces/post";
 import {useNavigate, useOutletContext} from "react-router-dom";
 import {getPostById, updatePost} from "../../Api/api";
 import PageHeader from "../../Components/PageHeader/PageHeader";
@@ -18,7 +18,7 @@ interface Props {
 const UpdatePostPage = (props: Props) => {
   const { token } = useOutletContext<AppContext>();
   const postId = Number(useParams()["id"]);
-  const [formData, setFormData] = useState<PostRequest>({
+  const [formData, setFormData] = useState<UpdatePostRequest>({
     content: "", title: ""
   });
   const [error, setError] = useState<string | null>(null);
@@ -68,7 +68,7 @@ const UpdatePostPage = (props: Props) => {
     <>
       <PageHeader>{t("update_post")}</PageHeader>
       { error && <ErrorMessage>{error}</ErrorMessage> }
-      <PostForm onSubmit={onUpdateSubmit} onChange={onUpdateChange} buttonName={t("update")} initTitle={formData.title} initContent={formData.content} />
+      <PostForm onSubmit={onUpdateSubmit} onChange={onUpdateChange} buttonName={t("update")} initTitle={formData.title} initContent={formData.content} hasUpload={false} />
     </>
   );
 };

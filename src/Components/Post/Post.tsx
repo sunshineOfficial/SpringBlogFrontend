@@ -3,17 +3,20 @@ import {PostResponse} from "../../Api/Interfaces/post";
 import {UserResponse} from "../../Api/Interfaces/user";
 import {getUserById} from "../../Api/api";
 import {useTranslation} from "react-i18next";
+import PostImage from "../PostImage/PostImage";
 
 interface Props {
   postResponse: PostResponse;
+  imageSource: string;
 }
 
 /**
  * Блок поста.
- * 
+ *
  * @param postResponse объект, содержащий информацию о посте
+ * @param imageSource  источник изображения
  */
-const Post = ({ postResponse }: Props) => {
+const Post = ({ postResponse, imageSource }: Props) => {
   const [user, setUser] = useState<UserResponse | null>(null);
   const { t } = useTranslation();
 
@@ -40,6 +43,7 @@ const Post = ({ postResponse }: Props) => {
       <h2 className="text-4xl font-extrabold">{postResponse.title} <small className="ml-2 font-semibold text-gray-500">{user?.username}</small></h2>
       <p className="text-gray-500">{t("author") + user?.firstName} {user?.lastName}</p>
       <p className="mb-3 text-gray-500">{t("created_at") + createdAt.toLocaleString()} {t("updated_at") + updatedAt.toLocaleString()} {publishedText}</p>
+      <PostImage source={imageSource} />
       <p className="mb-6 text-lg text-gray-500 md:text-xl">{postResponse.content}</p>
     </>
   );
