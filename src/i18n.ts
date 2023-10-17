@@ -60,7 +60,8 @@ i18n
         upload_avatar: "Загрузить аватар",
         no_avatar: "Нет аватара!",
         upload_image: "Загрузить изображение",
-        no_image: "Нет изображения!"
+        no_image: "Нет изображения!",
+        change_avatar: "Сменить аватар"
       }
     },
     en: {
@@ -113,7 +114,8 @@ i18n
         upload_avatar: "Upload avatar",
         no_avatar: "No avatar!",
         upload_image: "Upload image",
-        no_image: "No image!"
+        no_image: "No image!",
+        change_avatar: "Change avatar"
       }
     }
   }
